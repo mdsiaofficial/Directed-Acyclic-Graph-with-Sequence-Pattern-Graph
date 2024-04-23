@@ -39,9 +39,9 @@ bool traverseGraph(const vector<Vertex>& graph, const string& pattern, int curre
     // Check if the weight/label from the graph matches the seeking weight/label for the current patternIndex
     if (isMatch(pattern[patternIndex], currentVertex.label)) {
         // For each outgoing edge from the current vertex
-        for (const Edge& edge : currentVertex.outgoingEdges) {
+        for (const int targetVertexIndex : currentVertex.outgoingEdges) {
             // Recursively traverse the graph starting from the target vertex of the edge
-            if (traverseGraph(graph, pattern, edge.targetVertexIndex, patternIndex + 1)) {
+            if (traverseGraph(graph, pattern, targetVertexIndex, patternIndex + 1)) {
                 return true; // If the traversal is successful, return true
             }
         }
@@ -72,7 +72,7 @@ vector<Vertex> buildGraph() {
 
 int main() {
     vector<Vertex> graph = buildGraph();
-    string pattern = "abc";
+    string pattern = "abcc";
 
     // Start the traversal from the first vertex in the graph (index 0)
     if (traverseGraph(graph, pattern, 0, 0)) {
